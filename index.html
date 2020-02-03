@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>  
+<head>
+  <title>Decentralized 3PL</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">
+  <link rel = "stylesheet" type = "text/css" href = "stylesheet.css" />
+  </script>
+</head>
+<body>
+  <h1>Decentralized 3PL</h1>
+  <div id="container">
+    <select id="dropDown">
+      <option>Select</option>
+      <option value="shipment1">Shipment One</option>
+      <option value="shipment2">Shipment Two</option>
+      <option   value="shipment3">Shipment Three</option>
+    </select>
+    <input name="pickedup" type='button' id="pickedup" value='Picked Up' />
+     <input name="delivered" type='button' id="delivered" value='Delivered'/>
+</div>
+</body>
+  
+ <script>
+   if (typeof web3 !== 'undefined') {
+            web3 = new      Web3(web3.currentProvider);
+        } else {
+            // set the provider you want from Web3.providers
+            web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+        }
+web3.eth.defaultAccount = web3.eth.accounts[0];
+   
+var contractaddress = Shipment.at('0xe2510e30a39B16c9734809874192E0559c7D28B0');
+console.log(contractaddress);
+   
+var Shipment = web3.eth.contract([
+	{
+		"inputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "_from",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "bytes32",
+				"name": "_id",
+				"type": "bytes32"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "_value",
+				"type": "uint256"
+			}
+		],
+		"name": "Deposit",
+		"type": "event"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "ShipmentInfo",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "pickedup",
+				"type": "bool"
+			},
+			{
+				"internalType": "bool",
+				"name": "delivery",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "balanceOf",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "deposit",
+		"outputs": [],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "bool",
+				"name": "deliverystatus",
+				"type": "bool"
+			}
+		],
+		"name": "setDeliveryStatus",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "bool",
+				"name": "pickedstatus",
+				"type": "bool"
+			}
+		],
+		"name": "setPickupStatus",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	}
+]);
+ </script>
+
+</html>
