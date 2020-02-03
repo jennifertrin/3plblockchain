@@ -3,14 +3,14 @@ pragma solidity >=0.5.12;
 contract Carrier {
 
 address owner;
-mapping(address => uint256) public balanceOf; 
+mapping(address => uint256) public balanceOf;
 
 struct Shipment {
     ///string shipmentid;
     ///string locationA;
     ///string locationB;
     bool pickedup;
-    bool delivered;
+    bool delivery;
     ///uint256 amount;
 }
 
@@ -27,16 +27,25 @@ event Deposit (
     uint _value
 );
 
-  constructor() public {
+constructor() public {
       owner = msg.sender;
   }
-    
-  function deposit(uint256 amount) payable public {
+
+function deposit(uint256 amount) payable public {
         require(msg.value == amount);
-        balanceOf[msg.sender] += amount;  
+        balanceOf[msg.sender] += amount;
   }
-  
-  function setShipment(bool pickedstatus) public {
+function setPickupStatus(bool pickedstatus) public {
         Shipment storage shipment = ShipmentInfo[msg.sender];
         shipment.pickedup = pickedstatus;
     }
+function setDeliveryStatus(bool deliverystatus) public {
+        Shipment storage shipment = ShipmentInfo[msg.sender];
+        shipment.delivery = deliverystatus;
+    }
+/**function completedShipment(uint shipmentamount) public payable {
+      if (ShipmentDetails[pickedup] == 1) {
+          require deposit(shipmentamount);
+      }
+  }**/
+}

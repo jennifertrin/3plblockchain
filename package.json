@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/jennifertrin/3plblockchain/issues"
   },
-  "homepage": "https://github.com/jennifertrin/3plblockchain#readme"
+  "homepage": "https://github.com/jennifertrin/3plblockchain#readme",
+  "dependencies": {
+    "web3": "^1.2.6"
+  }
 }
